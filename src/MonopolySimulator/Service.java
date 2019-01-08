@@ -1,7 +1,5 @@
 package MonopolySimulator;
 
-import MonopolySimulator.Players.Player;
-
 class Service extends Property {
 
     Service(UIHandler uih, Banker bank, String name) {

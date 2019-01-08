@@ -26,30 +26,6 @@ public class ChanceTest {
     }
 
     @Test
-    public void constructor() {
-        boolean[] checks = new boolean[16];
-
-        for (int i : c.order) {
-            assertTrue(i >= 0);
-            assertTrue(i < 16);
-
-            assertFalse(checks[i]);
-            checks[i] = true;
-        }
-    }
-
-    @Test
-    public void action() {
-        for (int i = 0; i < 16; i++) {
-            c.action(p, 0);
-            assertEquals(15 - i, c.order.size());
-        }
-
-        c.action(p, 0);
-        assertEquals(14, c.order.size());
-    }
-
-    @Test
     public void cardAction() {
         c.cardAction(p, 0);
         assertEquals(39, mb.getPlayerPos(0));
