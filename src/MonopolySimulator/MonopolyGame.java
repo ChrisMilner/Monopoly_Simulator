@@ -87,7 +87,7 @@ class MonopolyGame {
 
     private boolean winCondition() {
         // TODO: Add Proper win condition
-        return (roundNum > 20);
+        return (activePlayers.size() <= 1 || roundNum > 20);
     }
 
     void bankruptPlayer(Player p) {
@@ -96,7 +96,18 @@ class MonopolyGame {
         bankruptPlayers.add(p);
         activePlayers.remove(p);
 
-        // TODO: Clean up their property
+        for (int i = 0; i < 40; i++) {
+            BoardPosition bp = board.getPlace(i);
+
+            if (!(bp instanceof Property))
+                continue;
+
+            Property prop = (Property) bp;
+
+            if (prop.getOwner() != null && prop.getOwner().getID() == p.getID()) {
+                prop.removeOwner();
+            }
+        }
     }
 
     private boolean isInJail(int id) {

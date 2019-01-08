@@ -73,6 +73,10 @@ public abstract class Property extends BoardPosition {
         return owner;
     }
 
+    void removeOwner() {
+        owner = null;
+    }
+
     public int getMortgage() {
         return mortgage;
     }
