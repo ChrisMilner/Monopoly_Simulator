@@ -27,7 +27,7 @@ public class CardsTest {
 
         ArrayList<Player> ps = new ArrayList<>();
         ps.add(p);
-        mb = new MonopolyBoard(uih, ps, b);
+        mb = new MonopolyBoard(uih, game, b, ps);
 
         c = new Chance(uih, mb, b);
     }

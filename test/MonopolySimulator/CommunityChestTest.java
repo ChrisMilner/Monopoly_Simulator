@@ -14,6 +14,7 @@ public class CommunityChestTest {
 
     private CommunityChest c;
     private Player p;
+    private MonopolyGame game;
     private MonopolyBoard mb;
     private Banker b;
 
@@ -21,18 +22,22 @@ public class CommunityChestTest {
     public void setUp() throws Exception {
         UIHandler uih = new CLIHandler();
 
-        MonopolyGame game = new MonopolyGame(uih, new ArrayList<>());
-
-        b = new Banker(uih, game);
         p = new DefaultPlayer(0, "Player 0");
-        b.registerPlayer(p.getID(), 1500);
-        p.assignBanker(b);
-
+        Player p1 = new DefaultPlayer(1, "Player 1");
         ArrayList<Player> ps = new ArrayList<>();
         ps.add(p);
-        mb = new MonopolyBoard(uih, ps, b);
+        ps.add(p1);
+        game = new MonopolyGame(uih, ps);
 
-        c = new CommunityChest(uih, mb, b, new Chance(uih, mb, b));
+        b = new Banker(uih, game);
+        b.registerPlayer(p.getID(), 1500);
+        p.assignBanker(b);
+        b.registerPlayer(p1.getID(), 1500);
+        p1.assignBanker(b);
+
+        mb = new MonopolyBoard(uih, game, b, ps);
+
+        c = new CommunityChest(uih, game, mb, b, new Chance(uih, mb, b));
     }
 
     @Test
@@ -45,9 +50,9 @@ public class CommunityChestTest {
         c.cardAction(p, 1);
         assertEquals(prevBalance + 50, b.getBalance(0));
 
-//        prevBalance = b.getBalance(0);
-//        c.cardAction(p, 2);
-//        assertEquals(prevBalance + (10 * __), b.getBalance(0));
+        prevBalance = b.getBalance(0);
+        c.cardAction(p, 2);
+        assertEquals(prevBalance + (10 * (game.getActivePlayers().size() - 1)), b.getBalance(0));
 
         prevBalance = b.getBalance(0);
         c.cardAction(p, 3);

@@ -10,12 +10,14 @@ class MonopolyBoard {
     private final static int NO_OF_BOARD_POSITIONS = 40;
 
     private UIHandler uih;
+    private MonopolyGame game;
     private Banker bank;
     private BoardPosition[] places = new BoardPosition[NO_OF_BOARD_POSITIONS];
     private HashMap<Integer,Integer> playerPositions = new HashMap<>();
 
-    MonopolyBoard(UIHandler uih, ArrayList<Player> players, Banker bank) {
+    MonopolyBoard(UIHandler uih, MonopolyGame game, Banker bank, ArrayList<Player> players) {
         this.uih = uih;
+        this.game = game;
         this.bank = bank;
 
         for (Player p : players) {
@@ -78,7 +80,7 @@ class MonopolyBoard {
 
     private void initialiseBoard() {
         Chance chance = new Chance(uih, this, bank);
-        CommunityChest cc = new CommunityChest(uih, this, bank, chance);
+        CommunityChest cc = new CommunityChest(uih, game, this, bank, chance);
 
         places[0] = new Empty(uih, "Go");
         places[1] = new Street(uih, bank, "Old Kent Road", 60, new int[] {2,10,30,90,160,250});

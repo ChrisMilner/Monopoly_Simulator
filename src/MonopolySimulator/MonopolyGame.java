@@ -24,7 +24,7 @@ class MonopolyGame {
         bankruptPlayers = new ArrayList<>();
 
         banker = new Banker(uih, this);
-        board = new MonopolyBoard(uih, players, banker);
+        board = new MonopolyBoard(uih, this, banker, players);
 
         for (Player p : players) {
             banker.registerPlayer(p.getID(), 1500);
@@ -101,6 +101,10 @@ class MonopolyGame {
 
     private boolean isInJail(int id) {
         return board.getJail().prisonerDurations.containsKey(id);
+    }
+
+    ArrayList<Player> getActivePlayers() {
+        return activePlayers;
     }
 
 }

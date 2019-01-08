@@ -28,7 +28,7 @@ public class JailTest {
 
         ArrayList<Player> ps = new ArrayList<>();
         ps.add(p);
-        mb = new MonopolyBoard(uih, ps, b);
+        mb = new MonopolyBoard(uih, game, b, ps);
     }
 
     // TODO: Expand on tests for different exit options

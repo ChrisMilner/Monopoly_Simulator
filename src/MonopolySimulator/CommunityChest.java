@@ -4,11 +4,13 @@ import MonopolySimulator.Players.Player;
 
 class CommunityChest extends Cards {
 
+    private MonopolyGame game;
     private Chance chance;
 
-    CommunityChest(UIHandler uih, MonopolyBoard board, Banker bank, Chance chance) {
+    CommunityChest(UIHandler uih, MonopolyGame game, MonopolyBoard board, Banker bank, Chance chance) {
         super(uih, board, bank, "Community Chest");
 
+        this.game = game;
         this.chance = chance;
     }
 
@@ -24,7 +26,12 @@ class CommunityChest extends Cards {
                 break;
             case 2:
                 uih.cardDrawn("It's your Birthday (+10 from every player)");
-                // TODO: Implement
+                for (Player p2 : game.getActivePlayers()) {
+                    if (p2 == p)
+                        continue;
+
+                    bank.transaction(p2, p, 10);
+                }
                 break;
             case 3:
                 uih.cardDrawn("Receive Interest on 7% Preference Shares (+25)");
