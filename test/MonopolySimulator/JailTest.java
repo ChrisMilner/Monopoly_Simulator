@@ -50,9 +50,11 @@ public class JailTest {
 
     @Test
     public void giveGOOJFCard() {
-        mb.getJail().giveGOOJFCard(p);
-        assertTrue(mb.getJail().GOOJFCards.containsKey(p.getID()));
-        assertEquals(1, (int) mb.getJail().GOOJFCards.get(p.getID()));
+        mb.getJail().giveGOOJFCard(p, true);
+        assertEquals(0, mb.getJail().chanceGOOJFOwner);
+
+        mb.getJail().giveGOOJFCard(p, false);
+        assertEquals(0, mb.getJail().chestGOOJFOwner);
     }
 
 }

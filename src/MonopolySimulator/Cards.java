@@ -3,6 +3,7 @@ package MonopolySimulator;
 import MonopolySimulator.Players.Player;
 
 import java.util.LinkedList;
+
 import static java.util.Collections.shuffle;
 
 abstract class Cards extends BoardPosition {
@@ -47,5 +48,9 @@ abstract class Cards extends BoardPosition {
         }
 
         shuffle(order);
+    }
+
+    void reAddGOOJFCard() {
+        containsGOOJFCard = true;
     }
 }

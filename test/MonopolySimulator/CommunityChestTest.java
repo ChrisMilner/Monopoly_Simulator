@@ -54,8 +54,7 @@ public class CommunityChestTest {
         assertEquals(prevBalance + 25, b.getBalance(0));
 
         c.cardAction(p, 4);
-        assertTrue(mb.getJail().GOOJFCards.containsKey(0));
-        assertEquals(1, (int) mb.getJail().GOOJFCards.get(0));
+        assertEquals(0, mb.getJail().chestGOOJFOwner);
 
         c.cardAction(p, 5);
         assertEquals(0, mb.getPlayerPos(0));

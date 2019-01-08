@@ -32,7 +32,7 @@ class CommunityChest extends Cards {
                 break;
             case 4:
                 uih.cardDrawn("Get out of Jail Free");
-                board.getJail().giveGOOJFCard(p);
+                board.getJail().giveGOOJFCard(p, false);
                 containsGOOJFCard = false;
                 break;
             case 5:

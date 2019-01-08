@@ -12,7 +12,9 @@ class Jail extends BoardPosition {
 
     private Random rand;
     HashMap<Integer, Integer> prisonerDurations;
-    HashMap<Integer, Integer> GOOJFCards;
+
+    int chanceGOOJFOwner;
+    int chestGOOJFOwner;
 
     Jail(UIHandler uih, MonopolyBoard board, Banker bank) {
         super(uih, "Jail");
@@ -22,7 +24,9 @@ class Jail extends BoardPosition {
 
         rand = new Random();
         prisonerDurations = new HashMap<>();
-        GOOJFCards = new HashMap<>();
+
+        chanceGOOJFOwner = -1;
+        chestGOOJFOwner = -1;
     }
 
     void action(Player p, int roll) {
@@ -64,10 +68,14 @@ class Jail extends BoardPosition {
                 case 3:
                     uih.choseCardForExit();
 
-                    if (GOOJFCards.containsKey(p.getID()) && GOOJFCards.get(p.getID()) > 0) {
-                        GOOJFCards.replace(p.getID(), GOOJFCards.get(p.getID()) - 1);
-
-                        // TODO: Re-add card to deck
+                    if (p.getID() == chanceGOOJFOwner || p.getID() == chestGOOJFOwner) {
+                        if (p.getID() == chanceGOOJFOwner) {
+                            chanceGOOJFOwner = -1;
+                            ((Chance) board.getPlace(7)).reAddGOOJFCard();
+                        } else if (p.getID() == chestGOOJFOwner) {
+                            chestGOOJFOwner = -1;
+                            ((CommunityChest) board.getPlace(2)).reAddGOOJFCard();
+                        }
 
                         prisonerDurations.remove(p.getID());
                         board.movePlayerTo(p, 10, false);
@@ -103,12 +111,11 @@ class Jail extends BoardPosition {
         board.movePlayerTo(p, 10, false);
     }
 
-    void giveGOOJFCard(Player p) {
-        int current = 0;
-        if (GOOJFCards.containsKey(p.getID())) {
-            current = GOOJFCards.get(p.getID());
+    void giveGOOJFCard(Player p, boolean isChance) {
+        if (isChance) {
+            chanceGOOJFOwner = p.getID();
+        } else {
+            chestGOOJFOwner = p.getID();
         }
-
-        GOOJFCards.put(p.getID(), current + 1);
     }
 }

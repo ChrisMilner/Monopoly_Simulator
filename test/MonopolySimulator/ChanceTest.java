@@ -51,8 +51,7 @@ public class ChanceTest {
         assertTrue(mb.getJail().prisonerDurations.containsKey(0));
 
         c.cardAction(p, 4);
-        assertTrue(mb.getJail().GOOJFCards.containsKey(0));
-        assertEquals(1, (int) mb.getJail().GOOJFCards.get(0));
+        assertEquals(0, mb.getJail().chanceGOOJFOwner);
 
         c.cardAction(p, 5);
         assertEquals(27, mb.getPlayerPos(0));

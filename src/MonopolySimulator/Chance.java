@@ -31,7 +31,7 @@ class Chance extends Cards {
                 break;
             case 4:
                 uih.cardDrawn("Get out of Jail Free");
-                board.getJail().giveGOOJFCard(p);
+                board.getJail().giveGOOJFCard(p, true);
                 containsGOOJFCard = false;
                 break;
             case 5:
