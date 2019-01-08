@@ -1,5 +1,7 @@
 package MonopolySimulator;
 
+import MonopolySimulator.Players.Player;
+
 import java.util.Scanner;
 
 class CLIHandler extends UIHandler {
@@ -155,6 +157,10 @@ class CLIHandler extends UIHandler {
 
     void noCardAvailable() {
         System.out.println("  No Get Out of Jail Free Card is owned");
+    }
+
+    void bankrupt(Player p) {
+        System.out.println(" == " + p.getName() + " is Bankrupt == ");
     }
 
     void informUserOfException(Throwable e) {

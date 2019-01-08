@@ -3,6 +3,7 @@ package MonopolySimulator;
 import MonopolySimulator.Players.Player;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 class MonopolyGame {
@@ -45,7 +46,9 @@ class MonopolyGame {
     }
 
     private void playRound() {
-        for (Player p : activePlayers) {
+        Iterator<Player> it = activePlayers.iterator();
+        while (it.hasNext()) {
+            Player p = it.next();
             uih.playerTurn(p.getName());
 
             int roll1, roll2;
@@ -62,11 +65,13 @@ class MonopolyGame {
                     if (roll1 == roll2) {
                         doubleCount++;
 
-                        uih.doubleRoll(doubleCount);
-
                         if (doubleCount >= 3) {
                             uih.thirdDoubleRoll();
                             board.movePlayerTo(p, 30, false);
+                            board.executeActionOnPlayer(p, roll1 + roll2);
+                            break;
+                        } else {
+                            uih.doubleRoll(doubleCount);
                         }
                     }
 
@@ -86,6 +91,8 @@ class MonopolyGame {
     }
 
     void bankruptPlayer(Player p) {
+        uih.bankrupt(p);
+
         bankruptPlayers.add(p);
         activePlayers.remove(p);
 

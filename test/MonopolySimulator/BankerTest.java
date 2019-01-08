@@ -31,19 +31,19 @@ public class BankerTest {
     public void registerPlayer() {
         System.out.println("Register Player: Test 1 (Basic Usage)");
         bank.registerPlayer(0, 100);
-        assertEquals(bank.getBalance(0), 100);
+        assertEquals(100, bank.getBalance(0));
 
         System.out.println("Register Player: Test 2 (Bounds)");
         bank.registerPlayer(1, 0);
-        assertEquals(bank.getBalance(1), 0);
+        assertEquals(0, bank.getBalance(1));
 
         System.out.println("Register Player: Test 3 (Bounds)");
         bank.registerPlayer(2, 1000000000);
-        assertEquals(bank.getBalance(2), 1000000000);
+        assertEquals(1000000000, bank.getBalance(2));
 
         System.out.println("Register Player: Test 4 (Bounds)");
         bank.registerPlayer(1000000000, 50);
-        assertEquals(bank.getBalance(1000000000), 50);
+        assertEquals(50, bank.getBalance(1000000000));
 
         System.out.println("Register Player: Test 5 (Errors)");
         exit.expectSystemExit();
@@ -57,22 +57,22 @@ public class BankerTest {
 
         System.out.println("Alter Balance: Test 1 (Basic Usage)");
         bank.alterBalance(p, 100);
-        assertEquals(bank.getBalance(0), 100);
+        assertEquals(100, bank.getBalance(0));
 
         System.out.println("Alter Balance: Test 2 (Basic Usage)");
         bank.alterBalance(p, -99);
-        assertEquals(bank.getBalance(0), 1);
+        assertEquals(1, bank.getBalance(0));
 
         System.out.println("Alter Balance: Test 3 (Bounds)");
         bank.alterBalance(p, 1000000000);
-        assertEquals(bank.getBalance(0), 1000000001);
+        assertEquals(1000000001, bank.getBalance(0));
 
         System.out.println("Alter Balance: Test 4 (Bounds)");
         bank.alterBalance(p, 0);
-        assertEquals(bank.getBalance(0), 1000000001);
+        assertEquals(1000000001, bank.getBalance(0));
 
         System.out.println("Alter Balance: Test 5 (Bankruptcy)");
-        assertEquals(bank.alterBalance(p, -2000000000), -1);
+        assertEquals(-1, bank.alterBalance(p, -2000000000));
 
         System.out.println("Alter Balance: Test 6 (Errors)");
         exit.expectSystemExit();
@@ -88,8 +88,8 @@ public class BankerTest {
 
         System.out.println("Transaction: Test 1 (Basic Usage)");
         bank.transaction(p0, p1, 100);
-        assertEquals(bank.getBalance(0), 900);
-        assertEquals(bank.getBalance(1), 1100);
+        assertEquals(900, bank.getBalance(0));
+        assertEquals(1100, bank.getBalance(1));
     }
 
 }

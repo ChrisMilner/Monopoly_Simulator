@@ -1,5 +1,7 @@
 package MonopolySimulator;
 
+import MonopolySimulator.Players.Player;
+
 abstract class UIHandler {
 
     final static int MIN_PLAYERS = 2;
@@ -86,6 +88,8 @@ abstract class UIHandler {
 
     abstract void noCardAvailable();
 
+    abstract void bankrupt(Player p);
+
     void error(String msg) {
         System.err.println(msg);
     }
@@ -99,4 +103,5 @@ abstract class UIHandler {
     }
 
     abstract void informUserOfException(Throwable e);
+
 }

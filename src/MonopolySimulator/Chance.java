@@ -13,10 +13,12 @@ class Chance extends Cards {
             case 0:
                 uih.cardDrawn("Advance to Mayfair");
                 board.movePlayerTo(p, 39, true);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 1:
                 uih.cardDrawn("Advance to Go");
                 board.movePlayerTo(p, 0, true);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 2:
                 uih.cardDrawn("Street Repairs (-40 per House) (-115 per Hotel)");
@@ -25,7 +27,7 @@ class Chance extends Cards {
             case 3:
                 uih.cardDrawn("Go to Jail");
                 board.movePlayerTo(p, 30, false);
-                board.getJail().action(p, 0);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 4:
                 uih.cardDrawn("Get out of Jail Free");
@@ -63,14 +65,17 @@ class Chance extends Cards {
             case 12:
                 uih.cardDrawn("Advance to Trafalgar Square");
                 board.movePlayerTo(p, 24, true);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 13:
                 uih.cardDrawn("Advance to Marylebone Station");
                 board.movePlayerTo(p, 15, true);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 14:
                 uih.cardDrawn("Advance to Pall Mall");
                 board.movePlayerTo(p, 11, true);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 15:
                 uih.cardDrawn("\"Drunk in Charge\" (-20)");

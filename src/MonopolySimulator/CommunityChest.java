@@ -38,6 +38,7 @@ class CommunityChest extends Cards {
             case 5:
                 uih.cardDrawn("Advance to Go");
                 board.movePlayerTo(p, 0, true);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 6:
                 uih.cardDrawn("Pay Hospital (-100)");
@@ -58,7 +59,7 @@ class CommunityChest extends Cards {
             case 10:
                 uih.cardDrawn("Go to Jail");
                 board.movePlayerTo(p, 30, false);
-                board.getJail().action(p, 0);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 11:
                 uih.cardDrawn("Pay your Insurance Premium (-50)");
@@ -80,6 +81,7 @@ class CommunityChest extends Cards {
             case 14:
                 uih.cardDrawn("Go Back to Old Kent Road");
                 board.movePlayerTo(p, 1, false);
+                board.executeActionOnPlayer(p, 0);
                 break;
             case 15:
                 uih.cardDrawn("Annuity Matures Collect (+100)");
