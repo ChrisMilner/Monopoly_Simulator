@@ -9,7 +9,7 @@ public class DefaultPlayer extends Player {
     }
 
     public boolean propertyOfferHandler(Property p) {
-        return (p.price < bank.getBalance(this.getID()));
+        return (p.getPrice() < bank.getBalance(this.getID()));
     }
 
     public void cantPayHandler(int amount) {

@@ -6,8 +6,8 @@ class Service extends Property {
         super(uih, bank, name, 150, new int[] {4, 10});
     }
 
-    int getPrice(int roll) {
-        return rents[developmentLevel] * roll;
+    public int getRent(int roll) {
+        return getRents()[getDevelopmentLevel()] * roll;
     }
 
     void checkGroup() {

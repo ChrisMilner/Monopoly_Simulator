@@ -23,6 +23,7 @@ public class CardsTest {
         b = new Banker(uih, game);
         p = new DefaultPlayer(0, "Player 0");
         b.registerPlayer(p.getID(), 1500);
+        p.assignBanker(b);
 
         ArrayList<Player> ps = new ArrayList<>();
         ps.add(p);

@@ -20,10 +20,13 @@ public class CommunityChestTest {
     @Before
     public void setUp() throws Exception {
         UIHandler uih = new CLIHandler();
+
         MonopolyGame game = new MonopolyGame(uih, new ArrayList<>());
+
         b = new Banker(uih, game);
         p = new DefaultPlayer(0, "Player 0");
         b.registerPlayer(p.getID(), 1500);
+        p.assignBanker(b);
 
         ArrayList<Player> ps = new ArrayList<>();
         ps.add(p);
@@ -94,7 +97,7 @@ public class CommunityChestTest {
         prevBalance = b.getBalance(0);
         c.cardAction(p, 14);
         assertEquals(1, mb.getPlayerPos(0));
-        assertEquals(prevBalance, b.getBalance(p.getID()));
+        assertEquals(prevBalance - 60, b.getBalance(p.getID()));
 
         prevBalance = b.getBalance(0);
         c.cardAction(p, 15);

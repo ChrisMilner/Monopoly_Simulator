@@ -72,6 +72,10 @@ class MonopolyBoard {
 
     // TODO: Free Parking Money??
 
+    BoardPosition getPlace(int pos) {
+        return places[pos];
+    }
+
     private void initialiseBoard() {
         Chance chance = new Chance(uih, this, bank);
         CommunityChest cc = new CommunityChest(uih, this, bank, chance);
@@ -81,7 +85,7 @@ class MonopolyBoard {
         places[2] = cc;
         places[3] = new Street(uih, bank, "Whitechapel Road", 60, new int[] {4,20,60,180,320,450});
         places[4] = new Tax(uih, bank, "Income Tax", 200);
-        places[5] = new Station(uih, bank, "Kings Cross Station");
+        places[5] = new Station(uih, bank, this, "Kings Cross Station");
         places[6] = new Street(uih, bank, "The Angel Islington", 100, new int[] {6,30,90,270,400,550});
         places[7] = chance;
         places[8] = new Street(uih, bank, "Euston Road", 100, new int[] {6,30,90,270,400,550});
@@ -92,7 +96,7 @@ class MonopolyBoard {
         places[12] = new Service(uih, bank, "Electric Company");
         places[13] = new Street(uih, bank, "Whitehall", 140, new int[] {10,50,150,450,625,750});
         places[14] = new Street(uih, bank, "Northumberland Avenue", 160, new int[] {12,60,180,500,700,900});
-        places[15] = new Station(uih, bank, "Marylebone Station");
+        places[15] = new Station(uih, bank, this, "Marylebone Station");
         places[16] = new Street(uih, bank, "Bow Street", 180, new int[] {14,70,200,550,750,950});
         places[17] = cc;
         places[18] = new Street(uih, bank, "Marlborough Street", 180, new int[] {14,70,200,550,750,950});
@@ -103,7 +107,7 @@ class MonopolyBoard {
         places[22] = chance;
         places[23] = new Street(uih, bank, "Fleet Street", 220, new int[] {18,90,250,700,875,1050});
         places[24] = new Street(uih, bank, "Trafalgar Square", 240, new int[] {20,100,300,750,925,1100});
-        places[25] = new Station(uih, bank, "Fenchurch Street Station");
+        places[25] = new Station(uih, bank, this, "Fenchurch Street Station");
         places[26] = new Street(uih, bank, "Leicester Square", 260, new int[] {22,110,330,800,975,1150});
         places[27] = new Street(uih, bank, "Coventry Street", 260, new int[] {22,110,330,800,975,1150});
         places[28] = new Service(uih, bank, "Water Works");
@@ -114,7 +118,7 @@ class MonopolyBoard {
         places[32] = new Street(uih, bank, "Oxford Street", 300, new int[] {26,130,390,900,1100,1275});
         places[33] = cc;
         places[34] = new Street(uih, bank, "Bond Street", 320, new int[] {28,150,450,1000,1200,1400});
-        places[35] = new Station(uih, bank, "Liverpool Street Station");
+        places[35] = new Station(uih, bank, this, "Liverpool Street Station");
         places[36] = chance;
         places[37] = new Street(uih, bank, "Park Lane", 350, new int[] {35,175,500,1100,1300,1500});
         places[38] = new Tax(uih, bank, "Super Tax", 100);

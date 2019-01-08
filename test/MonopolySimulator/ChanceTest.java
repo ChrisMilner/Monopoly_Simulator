@@ -26,6 +26,7 @@ public class ChanceTest {
 
         b = new Banker(uih, game);
         b.registerPlayer(p.getID(), 1500);
+        p.assignBanker(b);
 
         ArrayList<Player> ps = new ArrayList<>();
         ps.add(p);

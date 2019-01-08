@@ -4,13 +4,13 @@ import MonopolySimulator.Players.Player;
 
 public abstract class Property extends BoardPosition {
 
-    public int price;
-    public int[] rents;
+    private int price;
+    private int[] rents;
     private Banker bank;
 
     private Player owner;
-    public int mortgage;
-    public int developmentLevel;
+    private int mortgage;
+    private int developmentLevel;
 
     Property(UIHandler uih, Banker bank, String name, int price, int[] rents) {
         super(uih, name);
@@ -39,10 +39,10 @@ public abstract class Property extends BoardPosition {
         } else {
             uih.propertyRented();
 
-            int price = getPrice(roll);
+            int rent = getRent(roll);
 
-            int newBalance = bank.transaction(p, owner, price);
-            uih.paidRent(price, newBalance);
+            int newBalance = bank.transaction(p, owner, rent);
+            uih.paidRent(rent, newBalance);
         }
     }
 
@@ -61,9 +61,34 @@ public abstract class Property extends BoardPosition {
         }
     }
 
-    int getPrice(int roll) {
+    public int getRent(int roll) {
         return rents[developmentLevel];
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public int getMortgage() {
+        return mortgage;
+    }
+
+    int getDevelopmentLevel() {
+        return developmentLevel;
+    }
+
+    void setDevelopmentLevel(int level) {
+        developmentLevel = level;
+    }
+
+    int[] getRents() {
+        return rents;
+    }
+
     abstract void checkGroup();
+
 }
