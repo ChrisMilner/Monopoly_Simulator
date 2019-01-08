@@ -7,7 +7,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 public class BankerTest {
 
@@ -15,16 +17,18 @@ public class BankerTest {
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     private UIHandler uih;
+    private Banker bank;
 
     @Before
     public void setUp() throws Exception {
         uih = new CLIHandler();
+
+        MonopolyGame game = new MonopolyGame(uih, new ArrayList<>());
+        bank = new Banker(uih, game);
     }
 
     @Test
     public void registerPlayer() {
-        Banker bank = new Banker(uih);
-
         System.out.println("Register Player: Test 1 (Basic Usage)");
         bank.registerPlayer(0, 100);
         assertEquals(bank.getBalance(0), 100);
@@ -48,7 +52,6 @@ public class BankerTest {
 
     @Test
     public void alterBalance() {
-        Banker bank = new Banker(uih);
         Player p = new DefaultPlayer(0, "Player 0");
         bank.registerPlayer(0, 0);
 
@@ -78,7 +81,6 @@ public class BankerTest {
 
     @Test
     public void transaction() {
-        Banker bank = new Banker(uih);
         Player p0 = new DefaultPlayer(0, "Player 0");
         Player p1 = new DefaultPlayer(1, "Player 1");
         bank.registerPlayer(0, 1000);

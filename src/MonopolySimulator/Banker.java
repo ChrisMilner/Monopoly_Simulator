@@ -8,9 +8,11 @@ public class Banker {
 
     private HashMap<Integer, Integer> records;
     private UIHandler uih;
+    private MonopolyGame game;
 
-    Banker(UIHandler uih) {
+    Banker(UIHandler uih, MonopolyGame game) {
         this.uih = uih;
+        this.game = game;
 
         records = new HashMap<>();
     }
@@ -36,7 +38,7 @@ public class Banker {
             p.cantPayHandler(amount);
 
             if (getBalance(p.getID()) + amount < 0) {
-                // TODO: Handle Bankruptcy
+                game.bankruptPlayer(p);
                 return -1;
             }
         }

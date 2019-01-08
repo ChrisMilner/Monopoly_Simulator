@@ -5,6 +5,8 @@ import MonopolySimulator.Players.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class JailTest {
@@ -17,12 +19,16 @@ public class JailTest {
     public void setUp() throws Exception {
         UIHandler uih = new CLIHandler();
         p = new DefaultPlayer(0, "Player 0");
-        b = new Banker(uih);
+
+        MonopolyGame game = new MonopolyGame(uih, new ArrayList<>());
+        b = new Banker(uih, game);
 
         b.registerPlayer(p.getID(), 1500);
         p.assignBanker(b);
 
-        mb = new MonopolyBoard(uih, new Player[] {p}, b);
+        ArrayList<Player> ps = new ArrayList<>();
+        ps.add(p);
+        mb = new MonopolyBoard(uih, ps, b);
     }
 
     // TODO: Expand on tests for different exit options

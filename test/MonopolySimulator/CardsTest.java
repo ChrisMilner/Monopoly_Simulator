@@ -5,6 +5,8 @@ import MonopolySimulator.Players.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class CardsTest {
@@ -17,10 +19,14 @@ public class CardsTest {
     @Before
     public void setUp() throws Exception {
         UIHandler uih = new CLIHandler();
-        b = new Banker(uih);
+        MonopolyGame game = new MonopolyGame(uih, new ArrayList<>());
+        b = new Banker(uih, game);
         p = new DefaultPlayer(0, "Player 0");
         b.registerPlayer(p.getID(), 1500);
-        mb = new MonopolyBoard(uih, new Player[] {p}, b);
+
+        ArrayList<Player> ps = new ArrayList<>();
+        ps.add(p);
+        mb = new MonopolyBoard(uih, ps, b);
 
         c = new Chance(uih, mb, b);
     }

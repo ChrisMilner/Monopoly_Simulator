@@ -1,12 +1,15 @@
 package MonopolySimulator;
 
 import MonopolySimulator.Players.Player;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 class MonopolyGame {
 
     private UIHandler uih;
-    private Player[] players;
+    private ArrayList<Player> activePlayers;
+    private ArrayList<Player> bankruptPlayers;
 
     private MonopolyBoard board;
     private Banker banker;
@@ -14,11 +17,12 @@ class MonopolyGame {
     private int roundNum;
 
 
-    MonopolyGame(UIHandler uih, Player[] players) {
+    MonopolyGame(UIHandler uih, ArrayList<Player> players) {
         this.uih = uih;
-        this.players = players;
+        this.activePlayers = new ArrayList<>(players);
+        bankruptPlayers = new ArrayList<>();
 
-        banker = new Banker(uih);
+        banker = new Banker(uih, this);
         board = new MonopolyBoard(uih, players, banker);
 
         for (Player p : players) {
@@ -31,7 +35,7 @@ class MonopolyGame {
     }
 
     void play() {
-        uih.newGame(players.length);
+        uih.newGame(activePlayers.size());
 
         while (!winCondition()) {
             uih.newRound(roundNum);
@@ -41,7 +45,7 @@ class MonopolyGame {
     }
 
     private void playRound() {
-        for (Player p : players) {
+        for (Player p : activePlayers) {
             uih.playerTurn(p.getName());
 
             int roll1, roll2;
@@ -79,6 +83,13 @@ class MonopolyGame {
     private boolean winCondition() {
         // TODO: Add Proper win condition
         return (roundNum > 20);
+    }
+
+    void bankruptPlayer(Player p) {
+        bankruptPlayers.add(p);
+        activePlayers.remove(p);
+
+        // TODO: Clean up their property
     }
 
     private boolean isInJail(int id) {

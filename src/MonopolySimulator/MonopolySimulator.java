@@ -1,6 +1,9 @@
 package MonopolySimulator;
 
-import MonopolySimulator.Players.*;
+import MonopolySimulator.Players.DefaultPlayer;
+import MonopolySimulator.Players.Player;
+
+import java.util.ArrayList;
 
 public class MonopolySimulator {
 
@@ -9,10 +12,10 @@ public class MonopolySimulator {
         uih.startSimulator();
 
         int playerNum = uih.getPlayerNum();
-        Player[] players = new Player[playerNum];
+        ArrayList<Player> players = new ArrayList<>();
 
-        for (int i = 0; i < players.length; i++) {
-            players[i] = new DefaultPlayer(i, "Player " + (i + 1));
+        for (int i = 0; i < playerNum; i++) {
+            players.add(new DefaultPlayer(i, "Player " + (i + 1)));
         }
 
         MonopolyGame game = new MonopolyGame(uih, players);

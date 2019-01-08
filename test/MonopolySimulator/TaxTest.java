@@ -5,7 +5,9 @@ import MonopolySimulator.Players.Player;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 public class TaxTest {
 
@@ -16,7 +18,8 @@ public class TaxTest {
     @Before
     public void setUp() throws Exception {
         UIHandler uih = new CLIHandler();
-        b = new Banker(uih);
+        MonopolyGame game = new MonopolyGame(uih, new ArrayList<>());
+        b = new Banker(uih, game);
         t = new Tax(uih, b, "Super Tax", 100);
         p = new DefaultPlayer(0, "Player 0");
 

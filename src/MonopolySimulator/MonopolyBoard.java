@@ -2,6 +2,7 @@ package MonopolySimulator;
 
 import MonopolySimulator.Players.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 class MonopolyBoard {
@@ -13,7 +14,7 @@ class MonopolyBoard {
     private BoardPosition[] places = new BoardPosition[NO_OF_BOARD_POSITIONS];
     private HashMap<Integer,Integer> playerPositions = new HashMap<>();
 
-    MonopolyBoard(UIHandler uih, Player[] players, Banker bank) {
+    MonopolyBoard(UIHandler uih, ArrayList<Player> players, Banker bank) {
         this.uih = uih;
         this.bank = bank;
 
