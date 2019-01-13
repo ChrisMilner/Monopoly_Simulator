@@ -68,62 +68,101 @@ class MonopolyBoard {
         places[pos].action(p, roll);
     }
 
-    Jail getJail() {
-        return (Jail) places[30];
-    }
-
-    // TODO: Free Parking Money??
-
     BoardPosition getPlace(int pos) {
         return places[pos];
     }
 
+    public static final int GO = 0;
+    public static final int OLD_KENT_ROAD = 1;
+    public static final int COMMUNITY_CHEST_1 = 2;
+    public static final int WHITECHAPEL_ROAD = 3;
+    public static final int INCOME_TAX = 4;
+    public static final int KINGS_CROSS_STATION = 5;
+    public static final int ANGEL_ISLINGTON = 6;
+    public static final int CHANCE_1 = 7;
+    public static final int EUSTON_ROAD = 8;
+    public static final int PENTONVILLE_ROAD = 9;
+
+    public static final int VISITING_JAIL = 10;
+    public static final int PALL_MALL = 11;
+    public static final int ELECTRIC_COMPANY= 12;
+    public static final int WHITEHALL = 13;
+    public static final int NORTHUMBERLAND_AVENUE = 14;
+    public static final int MARYLEBONE_STATION = 15;
+    public static final int BOW_STREET = 16;
+    public static final int COMMUNITY_CHEST_2 = 17;
+    public static final int MARLBOROUGH_STREET = 18;
+    public static final int VINE_STREET = 19;
+
+    public static final int FREE_PARKING = 20;
+    public static final int STRAND = 21;
+    public static final int CHANCE_2= 22;
+    public static final int FLEET_STREET = 23;
+    public static final int TRAFALGAR_SQUARE = 24;
+    public static final int FENCHURCH_STATION = 25;
+    public static final int LEICESTER_SQUARE = 26;
+    public static final int COVENTRY_STREET = 27;
+    public static final int WATER_WORKS = 28;
+    public static final int PICCADILLY = 29;
+
+    public static final int JAIL =30;
+    public static final int REGENT_STREET = 31;
+    public static final int OXFORD_STREET= 32;
+    public static final int COMMUNITY_CHEST_3 = 33;
+    public static final int BOND_STREET = 34;
+    public static final int LIVERPOOL_STATION = 35;
+    public static final int CHANCE_3 = 36;
+    public static final int PARK_LANE = 37;
+    public static final int SUPER_TAX = 38;
+    public static final int MAYFAIR = 39;
+
+    // TODO: Free Parking Money??
     private void initialiseBoard() {
         Chance chance = new Chance(uih, this, bank);
         CommunityChest cc = new CommunityChest(uih, game, this, bank, chance);
 
-        places[0] = new Empty(uih, "Go");
-        places[1] = new Street(uih, bank, "Old Kent Road", 60, new int[] {2,10,30,90,160,250});
-        places[2] = cc;
-        places[3] = new Street(uih, bank, "Whitechapel Road", 60, new int[] {4,20,60,180,320,450});
-        places[4] = new Tax(uih, bank, "Income Tax", 200);
-        places[5] = new Station(uih, bank, this, "Kings Cross Station");
-        places[6] = new Street(uih, bank, "The Angel Islington", 100, new int[] {6,30,90,270,400,550});
-        places[7] = chance;
-        places[8] = new Street(uih, bank, "Euston Road", 100, new int[] {6,30,90,270,400,550});
-        places[9] = new Street(uih, bank, "Pentonville Road", 120, new int[] {8,40,100,300,450,600});
+        places[GO] = new Empty(uih, "Go");
+        places[OLD_KENT_ROAD] = new Street(uih, bank, "Old Kent Road", 60, new int[] {2,10,30,90,160,250});
+        places[COMMUNITY_CHEST_1] = cc;
+        places[WHITECHAPEL_ROAD] = new Street(uih, bank, "Whitechapel Road", 60, new int[] {4,20,60,180,320,450});
+        places[INCOME_TAX] = new Tax(uih, bank, "Income Tax", 200);
+        places[KINGS_CROSS_STATION] = new Station(uih, bank, this, "Kings Cross Station");
+        places[ANGEL_ISLINGTON] = new Street(uih, bank, "The Angel Islington", 100, new int[] {6,30,90,270,400,550});
+        places[CHANCE_1] = chance;
+        places[EUSTON_ROAD] = new Street(uih, bank, "Euston Road", 100, new int[] {6,30,90,270,400,550});
+        places[PENTONVILLE_ROAD] = new Street(uih, bank, "Pentonville Road", 120, new int[] {8,40,100,300,450,600});
 
-        places[10] = new Empty(uih, "Visiting Jail");
-        places[11] = new Street(uih, bank, "Pall Mall", 140, new int[] {10,50,150,450,625,750});
-        places[12] = new Service(uih, bank, "Electric Company");
-        places[13] = new Street(uih, bank, "Whitehall", 140, new int[] {10,50,150,450,625,750});
-        places[14] = new Street(uih, bank, "Northumberland Avenue", 160, new int[] {12,60,180,500,700,900});
-        places[15] = new Station(uih, bank, this, "Marylebone Station");
-        places[16] = new Street(uih, bank, "Bow Street", 180, new int[] {14,70,200,550,750,950});
-        places[17] = cc;
-        places[18] = new Street(uih, bank, "Marlborough Street", 180, new int[] {14,70,200,550,750,950});
-        places[19] = new Street(uih, bank, "Vine Street", 200, new int[] {16,80,220,600,800,1000});
+        places[VISITING_JAIL] = new Empty(uih, "Visiting Jail");
+        places[PALL_MALL] = new Street(uih, bank, "Pall Mall", 140, new int[] {10,50,150,450,625,750});
+        places[ELECTRIC_COMPANY] = new Service(uih, bank, this, "Electric Company");
+        places[WHITEHALL] = new Street(uih, bank, "Whitehall", 140, new int[] {10,50,150,450,625,750});
+        places[NORTHUMBERLAND_AVENUE] = new Street(uih, bank, "Northumberland Avenue", 160, new int[] {12,60,180,500,700,900});
+        places[MARYLEBONE_STATION] = new Station(uih, bank, this, "Marylebone Station");
+        places[BOW_STREET] = new Street(uih, bank, "Bow Street", 180, new int[] {14,70,200,550,750,950});
+        places[COMMUNITY_CHEST_2] = cc;
+        places[MARLBOROUGH_STREET] = new Street(uih, bank, "Marlborough Street", 180, new int[] {14,70,200,550,750,950});
+        places[VINE_STREET] = new Street(uih, bank, "Vine Street", 200, new int[] {16,80,220,600,800,1000});
 
-        places[20] = new Empty(uih, "Free Parking");
-        places[21] = new Street(uih, bank, "Strand", 220, new int[] {18,90,250,700,875,1050});
-        places[22] = chance;
-        places[23] = new Street(uih, bank, "Fleet Street", 220, new int[] {18,90,250,700,875,1050});
-        places[24] = new Street(uih, bank, "Trafalgar Square", 240, new int[] {20,100,300,750,925,1100});
-        places[25] = new Station(uih, bank, this, "Fenchurch Street Station");
-        places[26] = new Street(uih, bank, "Leicester Square", 260, new int[] {22,110,330,800,975,1150});
-        places[27] = new Street(uih, bank, "Coventry Street", 260, new int[] {22,110,330,800,975,1150});
-        places[28] = new Service(uih, bank, "Water Works");
-        places[29] = new Street(uih, bank, "Piccadilly", 280, new int[] {22,120,360,850,1025,1200});
+        places[FREE_PARKING] = new Empty(uih, "Free Parking");
+        places[STRAND] = new Street(uih, bank, "Strand", 220, new int[] {18,90,250,700,875,1050});
+        places[CHANCE_2] = chance;
+        places[FLEET_STREET] = new Street(uih, bank, "Fleet Street", 220, new int[] {18,90,250,700,875,1050});
+        places[TRAFALGAR_SQUARE] = new Street(uih, bank, "Trafalgar Square", 240, new int[] {20,100,300,750,925,1100});
+        places[FENCHURCH_STATION] = new Station(uih, bank, this, "Fenchurch Street Station");
+        places[LEICESTER_SQUARE] = new Street(uih, bank, "Leicester Square", 260, new int[] {22,110,330,800,975,1150});
+        places[COVENTRY_STREET] = new Street(uih, bank, "Coventry Street", 260, new int[] {22,110,330,800,975,1150});
+        places[WATER_WORKS] = new Service(uih, bank, this, "Water Works");
+        places[PICCADILLY] = new Street(uih, bank, "Piccadilly", 280, new int[] {22,120,360,850,1025,1200});
 
-        places[30] = new Jail(uih, this, bank);
-        places[31] = new Street(uih, bank, "Regent Street", 300, new int[] {26,130,390,900,1100,1275});
-        places[32] = new Street(uih, bank, "Oxford Street", 300, new int[] {26,130,390,900,1100,1275});
-        places[33] = cc;
-        places[34] = new Street(uih, bank, "Bond Street", 320, new int[] {28,150,450,1000,1200,1400});
-        places[35] = new Station(uih, bank, this, "Liverpool Street Station");
-        places[36] = chance;
-        places[37] = new Street(uih, bank, "Park Lane", 350, new int[] {35,175,500,1100,1300,1500});
-        places[38] = new Tax(uih, bank, "Super Tax", 100);
-        places[39] = new Street(uih, bank, "Mayfair", 400, new int[] {50,200,600,1400,1700,2000});
+        places[JAIL] = new Jail(uih, this, bank);
+        places[REGENT_STREET] = new Street(uih, bank, "Regent Street", 300, new int[] {26,130,390,900,1100,1275});
+        places[OXFORD_STREET] = new Street(uih, bank, "Oxford Street", 300, new int[] {26,130,390,900,1100,1275});
+        places[COMMUNITY_CHEST_3] = cc;
+        places[BOND_STREET] = new Street(uih, bank, "Bond Street", 320, new int[] {28,150,450,1000,1200,1400});
+        places[LIVERPOOL_STATION] = new Station(uih, bank, this, "Liverpool Street Station");
+        places[CHANCE_3] = chance;
+        places[PARK_LANE] = new Street(uih, bank, "Park Lane", 350, new int[] {35,175,500,1100,1300,1500});
+        places[SUPER_TAX] = new Tax(uih, bank, "Super Tax", 100);
+        places[MAYFAIR] = new Street(uih, bank, "Mayfair", 400, new int[] {50,200,600,1400,1700,2000});
     }
 }

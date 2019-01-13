@@ -59,7 +59,7 @@ public class CommunityChestTest {
         assertEquals(prevBalance + 25, b.getBalance(0));
 
         c.cardAction(p, 4);
-        assertEquals(0, mb.getJail().chestGOOJFOwner);
+        assertEquals(0, ((Jail) mb.getPlace(MonopolyBoard.JAIL)).chestGOOJFOwner);
 
         c.cardAction(p, 5);
         assertEquals(0, mb.getPlayerPos(0));
@@ -82,7 +82,7 @@ public class CommunityChestTest {
 
         c.cardAction(p, 10);
         assertEquals(30, mb.getPlayerPos(0));
-        assertTrue(mb.getJail().prisonerDurations.containsKey(0));
+        assertTrue(((Jail) mb.getPlace(MonopolyBoard.JAIL)).prisonerDurations.containsKey(0));
 
         prevBalance = b.getBalance(0);
         c.cardAction(p, 11);

@@ -111,7 +111,7 @@ class MonopolyGame {
     }
 
     private boolean isInJail(int id) {
-        return board.getJail().prisonerDurations.containsKey(id);
+        return ((Jail) board.getPlace(MonopolyBoard.JAIL)).prisonerDurations.containsKey(id);
     }
 
     ArrayList<Player> getActivePlayers() {

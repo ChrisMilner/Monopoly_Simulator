@@ -1,29 +1,15 @@
 package MonopolySimulator;
 
-class Station extends Property {
-
-    private MonopolyBoard board;
+class Station extends NonStreet {
 
     Station(UIHandler uih, Banker bank, MonopolyBoard board, String name) {
-        super(uih, bank, name, 200, new int[] {25, 50, 100, 200});
-
-        this.board = board;
+        super(uih, bank, board, name, 200, new int[] {25, 50, 100, 200});
     }
 
     void checkGroup() {
-        int count = 0;
-        for (int i = 5; i < 36; i += 10) {
-            Station otherStation = (Station) board.getPlace(i);
+        int[] stations = {MonopolyBoard.KINGS_CROSS_STATION, MonopolyBoard.MARYLEBONE_STATION,
+                          MonopolyBoard.FENCHURCH_STATION, MonopolyBoard.LIVERPOOL_STATION};
 
-            if (otherStation.getOwner() == getOwner())
-                count++;
-        }
-
-        for (int i = 5; i < 36; i += 10) {
-            Station otherStation = (Station) board.getPlace(i);
-
-            if (otherStation.getOwner() == getOwner())
-                otherStation.setDevelopmentLevel(count);
-        }
+        updateDevelopmentLevels(stations);
     }
 }

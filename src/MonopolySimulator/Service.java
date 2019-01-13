@@ -1,9 +1,9 @@
 package MonopolySimulator;
 
-class Service extends Property {
+class Service extends NonStreet {
 
-    Service(UIHandler uih, Banker bank, String name) {
-        super(uih, bank, name, 150, new int[] {4, 10});
+    Service(UIHandler uih, Banker bank, MonopolyBoard board, String name) {
+        super(uih, bank, board, name, 150, new int[] {4, 10});
     }
 
     public int getRent(int roll) {
@@ -11,6 +11,8 @@ class Service extends Property {
     }
 
     void checkGroup() {
+        int[] services = {MonopolyBoard.ELECTRIC_COMPANY, MonopolyBoard.WATER_WORKS};
 
+        updateDevelopmentLevels(services);
     }
 }

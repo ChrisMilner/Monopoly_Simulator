@@ -48,10 +48,10 @@ public class ChanceTest {
 
         c.cardAction(p, 3);
         assertEquals(30, mb.getPlayerPos(0));
-        assertTrue(mb.getJail().prisonerDurations.containsKey(0));
+        assertTrue(((Jail) mb.getPlace(MonopolyBoard.JAIL)).prisonerDurations.containsKey(0));
 
         c.cardAction(p, 4);
-        assertEquals(0, mb.getJail().chanceGOOJFOwner);
+        assertEquals(0, ((Jail) mb.getPlace(MonopolyBoard.JAIL)).chanceGOOJFOwner);
 
         c.cardAction(p, 5);
         assertEquals(27, mb.getPlayerPos(0));
