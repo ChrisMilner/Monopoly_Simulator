@@ -36,7 +36,7 @@ abstract class NonStreet extends Property {
             if (otherProp.getOwner() == null)
                 continue;
 
-            otherProp.setDevelopmentLevel(ownerCounts.get(otherProp.getOwner().getID()));
+            otherProp.setDevelopmentLevel(ownerCounts.get(otherProp.getOwner().getID()) - 1);
         }
 
     }
