@@ -59,4 +59,33 @@ public class StreetTest {
         assertTrue(((Street) mb.getPlace(MonopolyBoard.WHITEHALL)).isPartOfFullGroup());
         assertTrue(((Street) mb.getPlace(MonopolyBoard.NORTHUMBERLAND_AVENUE)).isPartOfFullGroup());
     }
+
+    @Test
+    public void addHouse() {
+        Street na = (Street) mb.getPlace(MonopolyBoard.NORTHUMBERLAND_AVENUE);
+
+        assertEquals(0, na.getDevelopmentLevel());
+        assertEquals(12, na.getRent(0));
+
+        na.addHouse();
+        assertEquals(1, na.getDevelopmentLevel());
+        assertEquals(60, na.getRent(0));
+
+        na.addHouse();
+        assertEquals(2, na.getDevelopmentLevel());
+        assertEquals(180, na.getRent(0));
+
+        na.addHouse();
+        assertEquals(3, na.getDevelopmentLevel());
+        assertEquals(500, na.getRent(0));
+
+        na.addHouse();
+        assertEquals(4, na.getDevelopmentLevel());
+        assertEquals(700, na.getRent(0));
+
+        na.addHouse();
+        assertEquals(5, na.getDevelopmentLevel());
+        assertEquals(900, na.getRent(0));
+    }
+
 }

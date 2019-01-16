@@ -163,6 +163,14 @@ class CLIHandler extends UIHandler {
         System.out.println(" == " + p.getName() + " is Bankrupt == ");
     }
 
+    void boughtHouse(String propName) {
+        System.out.println("  Bought a house at " + propName);
+    }
+
+    void boughtHotel(String propName) {
+        System.out.println("  Bought a hotel at " + propName);
+    }
+
     void informUserOfException(Throwable e) {
         System.out.println("AN ERROR HAS OCCURRED");
         System.out.println("Trace: ");

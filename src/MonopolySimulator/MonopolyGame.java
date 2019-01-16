@@ -81,6 +81,24 @@ class MonopolyGame {
                 board.executeActionOnPlayer(p, roll1 + roll2);
             } while (roll1 == roll2 && roll1 != 0);
 
+            for (int i = MonopolyBoard.OLD_KENT_ROAD; i <= MonopolyBoard.MAYFAIR; i++) {
+                if (board.getPlace(i) instanceof Street) {
+                    Street street = (Street) board.getPlace(i);
+                    if (street.isPartOfFullGroup()
+                            && street.getOwner().getID() == p.getID()
+                            && street.getDevelopmentLevel() < 5) {
+
+                        // TODO: Enforce even development across colour groups???
+
+                        int amount = p.houseBuyingHandler(street);
+                        for (int j = 0; j < Math.min(amount, 5 - street.getDevelopmentLevel()); j++) {
+                            banker.alterBalance(p, -street.getHousePrice());
+                            street.addHouse();
+                        }
+                    }
+                }
+            }
+
             // TODO: Negotiation
         }
     }

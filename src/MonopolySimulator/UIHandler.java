@@ -90,6 +90,10 @@ abstract class UIHandler {
 
     abstract void bankrupt(Player p);
 
+    abstract void boughtHouse(String propName);
+
+    abstract void boughtHotel(String propName);
+
     void error(String msg) {
         System.err.println(msg);
     }

@@ -1,19 +1,18 @@
 package MonopolySimulator;
 
-class Street extends Property {
+public class Street extends Property {
 
     private MonopolyBoard board;
     private boolean partOfFullGroup;
+    private int houseCost;
     private int[] group;
 
-    // TODO: Add colour groups
-    // TODO: Add House Cost
-
-    Street(UIHandler uih, Banker bank, MonopolyBoard board, String name, int price, int[] rents, int[] group) {
+    Street(UIHandler uih, Banker bank, MonopolyBoard board, String name, int price, int[] rents, int houseCost, int[] group) {
         super(uih, bank, name, price, rents);
 
         this.board = board;
         partOfFullGroup = false;
+        this.houseCost = houseCost;
         this.group = group;
     }
 
@@ -36,11 +35,24 @@ class Street extends Property {
         }
     }
 
-    boolean isPartOfFullGroup() {
+    void addHouse() {
+        setDevelopmentLevel(getDevelopmentLevel() + 1);
+
+        if (getDevelopmentLevel() < 5)
+            uih.boughtHouse(name);
+        else
+            uih.boughtHotel(name);
+    }
+
+    public boolean isPartOfFullGroup() {
         return partOfFullGroup;
     }
 
     void setPartOfFullGroup(boolean val) {
         partOfFullGroup = val;
+    }
+
+    public int getHousePrice() {
+        return houseCost;
     }
 }

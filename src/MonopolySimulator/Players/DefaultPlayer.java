@@ -1,6 +1,7 @@
 package MonopolySimulator.Players;
 
 import MonopolySimulator.Property;
+import MonopolySimulator.Street;
 
 public class DefaultPlayer extends Player {
 
@@ -26,6 +27,12 @@ public class DefaultPlayer extends Player {
 
     public boolean fineOrChanceHandler() {
         return false;
+    }
+
+    public int houseBuyingHandler(Street s) {
+        // TODO: Implement reasonable AI response
+
+        return 0;
     }
 
 }

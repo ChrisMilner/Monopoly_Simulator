@@ -2,6 +2,7 @@ package MonopolySimulator.Players;
 
 import MonopolySimulator.Banker;
 import MonopolySimulator.Property;
+import MonopolySimulator.Street;
 
 public abstract class Player {
 
@@ -33,4 +34,6 @@ public abstract class Player {
     public abstract int jailExitHandler();
 
     public abstract boolean fineOrChanceHandler();
+
+    public abstract int houseBuyingHandler(Street s);
 }
