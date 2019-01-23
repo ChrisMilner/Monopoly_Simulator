@@ -43,8 +43,22 @@ public class ChanceTest {
         c.cardAction(p, 1);
         assertEquals(0, mb.getPlayerPos(0));
 
-//        c.cardAction(p, 2);
-//        assertEquals(--, b.getBalance(0));
+        int prevBalance = b.getBalance(0);
+        c.cardAction(p, 2);
+        assertEquals(prevBalance, b.getBalance(0));
+
+        mb.getPlace(MonopolyBoard.NORTHUMBERLAND_AVENUE).action(p, 0);
+        ((Street) mb.getPlace(MonopolyBoard.NORTHUMBERLAND_AVENUE)).setDevelopmentLevel(2);
+
+        prevBalance = b.getBalance(0);
+        c.cardAction(p, 2);
+        assertEquals(prevBalance - 80, b.getBalance(0));
+
+        ((Street) mb.getPlace(MonopolyBoard.NORTHUMBERLAND_AVENUE)).setDevelopmentLevel(5);
+
+        prevBalance = b.getBalance(0);
+        c.cardAction(p, 2);
+        assertEquals(prevBalance - 115, b.getBalance(0));
 
         c.cardAction(p, 3);
         assertEquals(30, mb.getPlayerPos(0));
@@ -59,12 +73,19 @@ public class ChanceTest {
         c.cardAction(p, 5);
         assertEquals(38, mb.getPlayerPos(0));
 
-        int prevBalance = b.getBalance(0);
+        prevBalance = b.getBalance(0);
         c.cardAction(p, 6);
         assertEquals(prevBalance - 150, b.getBalance(0));
 
-//        c.cardAction(p, 7);
-//        assertEquals(--, b.getBalance(0));
+        prevBalance = b.getBalance(0);
+        c.cardAction(p, 7);
+        assertEquals(prevBalance - 100, b.getBalance(0));
+
+        ((Street) mb.getPlace(MonopolyBoard.NORTHUMBERLAND_AVENUE)).setDevelopmentLevel(2);
+
+        prevBalance = b.getBalance(0);
+        c.cardAction(p, 7);
+        assertEquals(prevBalance - 50, b.getBalance(0));
 
         prevBalance = b.getBalance(0);
         c.cardAction(p, 8);

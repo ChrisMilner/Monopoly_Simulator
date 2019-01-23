@@ -22,7 +22,7 @@ class Chance extends Cards {
                 break;
             case 2:
                 uih.cardDrawn("Street Repairs (-40 per House) (-115 per Hotel)");
-                // TODO: Implement
+                bank.alterBalance(p, -getRepairCost(p, 40, 115));
                 break;
             case 3:
                 uih.cardDrawn("Go to Jail");
@@ -44,7 +44,7 @@ class Chance extends Cards {
                 break;
             case 7:
                 uih.cardDrawn("General Repairs (-25 per House) (-100 per hotel)");
-                // TODO: Implement
+                bank.alterBalance(p, -getRepairCost(p, 25, 100));
                 break;
             case 8:
                 uih.cardDrawn("Speeding Fine (-15)");
@@ -83,5 +83,25 @@ class Chance extends Cards {
                 break;
         }
 
+    }
+
+    private int getRepairCost(Player p, int house, int hotel) {
+        int cost = 0;
+        for (int i = MonopolyBoard.OLD_KENT_ROAD; i <= MonopolyBoard.MAYFAIR; i++) {
+            if (board.getPlace(i) instanceof Street) {
+                Street street = (Street) board.getPlace(i);
+
+                if (street.getOwner() != null && street.getOwner().getID() == p.getID() &&
+                        street.getDevelopmentLevel() > 0) {
+
+                    if (street.getDevelopmentLevel() < 5)
+                        cost += street.getDevelopmentLevel() * house;
+                    else
+                        cost += hotel;
+                }
+            }
+        }
+
+        return cost;
     }
 }
