@@ -1,5 +1,6 @@
 package MonopolySimulator.Players;
 
+import MonopolySimulator.Deal;
 import MonopolySimulator.Property;
 import MonopolySimulator.Street;
 
@@ -33,6 +34,16 @@ public class DefaultPlayer extends Player {
         // TODO: Implement reasonable AI response
 
         return 0;
+    }
+
+    public Deal[] negotiate() {
+        // TODO: Implement reasonable AI response
+
+        return new Deal[0];
+    }
+
+    public Deal handleDeal(Deal deal) {
+        return null;
     }
 
 }

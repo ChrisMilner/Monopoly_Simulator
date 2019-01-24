@@ -11,6 +11,7 @@ class MonopolyGame {
     private UIHandler uih;
     private ArrayList<Player> activePlayers;
     private ArrayList<Player> bankruptPlayers;
+    private int maxDeals;
 
     private MonopolyBoard board;
     private Banker banker;
@@ -18,11 +19,12 @@ class MonopolyGame {
     private int roundNum;
 
 
-    MonopolyGame(UIHandler uih, ArrayList<Player> players) {
+    MonopolyGame(UIHandler uih, ArrayList<Player> players, int maxDeals) {
         this.uih = uih;
         this.activePlayers = new ArrayList<>(players);
-        bankruptPlayers = new ArrayList<>();
+        this.maxDeals = maxDeals;
 
+        bankruptPlayers = new ArrayList<>();
         banker = new Banker(uih, this);
         board = new MonopolyBoard(uih, this, banker, players);
 
@@ -33,6 +35,10 @@ class MonopolyGame {
 
         rand = new Random();
         roundNum = 1;
+    }
+
+    MonopolyGame(UIHandler uih, ArrayList<Player> players) {
+        this(uih, players, players.size() - 1);
     }
 
     void play() {
@@ -99,8 +105,43 @@ class MonopolyGame {
                 }
             }
 
-            // TODO: Negotiation
+            Deal[] deals = p.negotiate();
+            for (int i = 0; i < Math.min(deals.length, maxDeals); i++) {
+                if (isValidDeal(p, deals[i])) {
+                    Deal response = deals[i].getTo().handleDeal(deals[i]);
+                    if (response.getType() == DealType.ACCEPT) {
+                        // TODO: Add output CLI
+                        executeDeal(deals[i]);
+                    }
+                }
+            }
         }
+    }
+
+    private boolean isValidDeal(Player p, Deal deal) {
+        // Check that all necessary values are set
+        if (deal.getTo() == null || deal.getFrom() == null || deal.getType() == null ||
+                deal.getGivingProperties() == null || deal.getReceivingProperties() == null)
+            return false;
+
+        // Check that the From value is set to them and the To is not set to them
+        if (deal.getFrom().getID() != p.getID() || deal.getTo().getID() == p.getID())
+            return false;
+
+        // Check that the To field is set to a valid and non-bankrupt player
+        if (!activePlayers.contains(deal.getTo()))
+            return false;
+
+        // TODO: Check that all the receiving properties are owned by the sender
+        // TODO: Check that all the giving properties are owned by the receiver
+        // TODO: Check that players have a valid amount of money
+        // TODO: Check that players have a valid amount of GOOJF cards
+
+        return true;
+    }
+
+    private void executeDeal(Deal deal) {
+        // TODO: Implement
     }
 
     private boolean winCondition() {
