@@ -57,63 +57,89 @@ class MonopolyGame {
             Player p = it.next();
             uih.playerTurn(p.getName());
 
-            int roll1, roll2;
-            int doubleCount = 0;
-            do {
-                roll1 = 0;
-                roll2 = 0;
+            organisePlayerRolls(p);
+            organiseHouseOffers(p);
+            organiseNegotiation(p);
+        }
+    }
 
-                if (!isInJail(p.getID())) {
-                    roll1 = rand.nextInt(6) + 1;
-                    roll2 = rand.nextInt(6) + 1;
-                    uih.rolled(roll1, roll2);
+    private void organisePlayerRolls(Player p) {
+        int roll1, roll2;
+        int doubleCount = 0;
+        do {
+            roll1 = 0;
+            roll2 = 0;
 
-                    if (roll1 == roll2) {
-                        doubleCount++;
+            if (!isInJail(p.getID())) {
+                roll1 = rand.nextInt(6) + 1;
+                roll2 = rand.nextInt(6) + 1;
+                uih.rolled(roll1, roll2);
 
-                        if (doubleCount >= 3) {
-                            uih.thirdDoubleRoll();
-                            board.movePlayerTo(p, 30, false);
-                            board.executeActionOnPlayer(p, roll1 + roll2);
-                            break;
-                        } else {
-                            uih.doubleRoll(doubleCount);
-                        }
+                if (roll1 == roll2) {
+                    doubleCount++;
+
+                    if (doubleCount >= 3) {
+                        uih.thirdDoubleRoll();
+                        board.movePlayerTo(p, 30, false);
+                        board.executeActionOnPlayer(p, roll1 + roll2);
+                        break;
+                    } else {
+                        uih.doubleRoll(doubleCount);
                     }
-
-                    board.movePlayer(p, roll1 + roll2);
                 }
 
-                board.executeActionOnPlayer(p, roll1 + roll2);
-            } while (roll1 == roll2 && roll1 != 0);
+                board.movePlayer(p, roll1 + roll2);
+            }
 
-            for (int i = MonopolyBoard.OLD_KENT_ROAD; i <= MonopolyBoard.MAYFAIR; i++) {
-                if (board.getPlace(i) instanceof Street) {
-                    Street street = (Street) board.getPlace(i);
-                    if (street.isPartOfFullGroup()
-                            && street.getOwner().getID() == p.getID()
-                            && street.getDevelopmentLevel() < 5) {
+            board.executeActionOnPlayer(p, roll1 + roll2);
+        } while (roll1 == roll2 && roll1 != 0);
+    }
 
-                        // TODO: Enforce even development across colour groups???
+    private void organiseHouseOffers(Player p) {
+        for (int i = MonopolyBoard.OLD_KENT_ROAD; i <= MonopolyBoard.MAYFAIR; i++) {
+            if (board.getPlace(i) instanceof Street) {
+                Street street = (Street) board.getPlace(i);
+                if (street.isPartOfFullGroup()
+                        && street.getOwner().getID() == p.getID()
+                        && street.getDevelopmentLevel() < 5) {
 
-                        int amount = p.houseBuyingHandler(street);
-                        for (int j = 0; j < Math.min(amount, 5 - street.getDevelopmentLevel()); j++) {
-                            banker.alterBalance(p, -street.getHousePrice());
-                            street.addHouse();
-                        }
+                    // TODO: Enforce even development across colour groups???
+
+                    int amount = p.houseBuyingHandler(street);
+                    for (int j = 0; j < Math.min(amount, 5 - street.getDevelopmentLevel()); j++) {
+                        banker.alterBalance(p, -street.getHousePrice());
+                        street.addHouse();
                     }
                 }
             }
+        }
+    }
 
-            Deal[] deals = p.negotiate();
-            for (int i = 0; i < Math.min(deals.length, maxDeals); i++) {
-                if (isValidDeal(p, deals[i])) {
-                    Deal response = deals[i].getTo().handleDeal(deals[i]);
-                    if (response.getType() == DealType.ACCEPT) {
-                        // TODO: Add output CLI
-                        executeDeal(deals[i]);
-                    }
+    private void organiseNegotiation(Player p) {
+        Deal[] deals = p.negotiate();
+        for (int i = 0; i < Math.min(deals.length, maxDeals); i++) {
+            Deal previous = null;
+            Deal response = deals[i];
+
+            boolean invalid = false;
+            int count = 0;
+            Player[] participants = new Player[] {p, response.getTo()};
+            do {
+                if (isValidDeal(participants[count % 2], response)) {
+                    previous = response;
+                    response = response.getTo().handleDeal(deals[i]);
+                } else {
+                    invalid = true;
+                    break;
                 }
+                count++;
+            } while (response.getType() == DealType.COUNTER_OFFER);
+
+            if (!invalid && response.getType() == DealType.ACCEPT) {
+                // TODO: Add output CLI
+
+                if (response.equals(previous))
+                    executeDeal(deals[i]);
             }
         }
     }
@@ -132,10 +158,36 @@ class MonopolyGame {
         if (!activePlayers.contains(deal.getTo()))
             return false;
 
-        // TODO: Check that all the receiving properties are owned by the sender
-        // TODO: Check that all the giving properties are owned by the receiver
-        // TODO: Check that players have a valid amount of money
-        // TODO: Check that players have a valid amount of GOOJF cards
+        // Check that all the receiving properties are owned by the sender
+        for (Property prop : deal.getReceivingProperties()) {
+            if (prop.getOwner().getID() != p.getID())
+                return false;
+        }
+
+        // Check that all the giving properties are owned by the receiver
+        for (Property prop : deal.getGivingProperties()) {
+            if (prop.getOwner().getID() != deal.getTo().getID())
+                return false;
+        }
+
+        // Check that players have a valid amount of money
+        if (deal.getMoney() > 0) {
+            if (banker.getBalance(p.getID()) < deal.getMoney())
+                return false;
+        } else {
+            if (banker.getBalance(deal.getTo().getID()) < -deal.getMoney())
+                return false;
+        }
+
+        // Check that players have a valid amount of GOOJF cards
+        Jail jail = (Jail) board.getPlace(MonopolyBoard.JAIL);
+        if (deal.getGOOJFCards() > 0) {
+            if (jail.getNumOfGOOJFCards(p.getID()) < deal.getGOOJFCards())
+                return false;
+        } else {
+            if (jail.getNumOfGOOJFCards(deal.getTo().getID()) < -deal.getGOOJFCards())
+                return false;
+        }
 
         return true;
     }

@@ -8,7 +8,7 @@ public class Deal {
     private Player from;
     private DealType type;
 
-    private int money;
+    private int money;      // Amount that the receiver will receive
     private int GOOJFCards;
     private Property[] givingProperties;        // The properties that the deal receiver will give
     private Property[] receivingProperties;     // The properties that the deal receiver will receive
@@ -87,5 +87,15 @@ public class Deal {
 
     public void setReceivingProperties(Property[] receivingProperties) {
         this.receivingProperties = receivingProperties;
+    }
+
+    public boolean equals(Deal other) {
+        return  this.to.getID() == other.getTo().getID() &&
+                this.from.getID() == other.getFrom().getID() &&
+                this.type == other.getType() &&
+                this.money == other.getMoney() &&
+                this.GOOJFCards == other.getGOOJFCards() &&
+                this.givingProperties == other.getGivingProperties() &&
+                this.receivingProperties == other.getReceivingProperties();
     }
 }

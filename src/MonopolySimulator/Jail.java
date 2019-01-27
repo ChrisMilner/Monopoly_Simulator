@@ -118,4 +118,16 @@ class Jail extends BoardPosition {
             chestGOOJFOwner = p.getID();
         }
     }
+
+    int getNumOfGOOJFCards(int id) {
+        int count = 0;
+
+        if (chanceGOOJFOwner == id)
+            count++;
+
+        if (chestGOOJFOwner == id)
+            count++;
+
+        return count;
+    }
 }
